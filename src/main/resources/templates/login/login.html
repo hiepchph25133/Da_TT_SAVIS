@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/static/css/login/login.css">
+    
+    <title>Login</title>
+</head>
+<body>
+<div class="hero">
+    <div class="form-box">
+        <div class="button-box">
+            <div id="btn"></div>
+            <button  type="button" class="toggle-btn" onclick="login()">Log In</button>
+            <button type="button" class="toggle-btn" onclick="register()">Register</button>
+        </div>
+        <div class="social-icons">
+            <button class="social-button" id="facebook-button">
+                <img src="/static/image/fb.png" alt="Facebook">
+            </button>
+            <button class="social-button" id="google-button" th:href="@{/oauth2/authorization/google}">
+                <img src="/static/image/gp.png" alt="Google">
+            </button>
+
+        </div>
+
+
+
+        <form id="login" class="input-group" action="/login" method="post">
+            <input type="text" class="input-field" placeholder="User Name" required name="userName">
+            <input type="password" class="input-field" placeholder="Enter Password"  required name="password">
+            <input type="checkbox" class="check-box"><span>Remember Password</span>
+            <button type="submit" class="submit-btn" value="Login">Login</button>
+        </form>
+
+
+        <form id="register" class="input-group" action="/api/auth/register" method="post">
+            <input type="text" class="input-field" placeholder="User name" required name="userName">
+            <input type="password" class="input-field" placeholder="Enter Password" required name="password">
+            <input type="checkbox" class="check-box" name="agree"><span>I agree</span>
+            <button type="submit" class="submit-btn">Register</button>
+            <!-- Thông báo đăng ký thành công -->
+            <div th:if="${registrationSuccess}" class="success-message">
+                Registration successful! Please log in.
+            </div>
+        </form>
+
+
+    </div>
+    <script>
+        var x = document.getElementById("login");
+        var y = document.getElementById("register");
+        var z = document.getElementById("btn");
+
+        function register(){
+            x.style.left = "-400px";
+            y.style.left = "50px";
+            z.style.left = "110px";
+        }
+        function login(){
+            x.style.left = "50px";
+            y.style.left = "450px";
+            z.style.left = "0px";
+        }
+    </script>
+    <style>
+        .social-button {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
+        }
+        .social-button img {
+            width: 100%;
+            height: auto;
+        }
+        .social-button:hover {
+            opacity: 0.8;
+        }
+    </style>
+<script>
+
+        .then(response => {
+            if (response.ok) {
+                // Đăng ký thành công, chuyển hướng đến trang đăng nhập và hiển thị thông báo
+                window.location.href = '/Home/login';
+                alert('User registered successfully!');
+            } else {
+                // Xử lý các mã trạng thái lỗi khác (nếu cần)
+                console.error('Error:', response.statusText);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            // Xử lý lỗi ở đây
+        });
+
+</script>
+
+</div>
+</body>
+</html>

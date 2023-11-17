@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang chủ</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+    <link rel="shortcut icon" type="image" href="img/IFF.png">
+    <link rel="stylesheet" href="/static/css/home/style.css">
+</head>
+
+<body>
+<!-- navbar/header section -->
+<section id="header">
+    <a href=""><img src="img/logo.png" class="logo" alt=""></a>
+
+    <div>
+        <ul id="navbar">
+            <li><a class="active" href="index.html">Home</a></li>
+            <li><a href="shop.html">Shop</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Support</a></li>
+            <li id="lg-bag"><a href="cart.html"><i class="fa-solid fa-cart-shopping"></i></a></li>
+            <a id="close"><i class="fa fa-times"></i></a>
+        </ul>
+    </div>
+    <div id="toggler">
+        <a href="cart.html"><i class="fa-solid fa-cart-shopping"></i></a>
+        <i id="bar" class="fas fa-outdent"></i>
+
+    </div>
+</section>
+
+<!-- first section content -->
+<div class="slideshow-container">
+    <section id="hero" class="slide">
+        <h4>Trade-in-offer</h4>
+        <h2>Super value deals</h2>
+        <h1>On all products</h1>
+        <p>Save more with coupons & up to 70% off!</p>
+        <button>Shop Now</button>
+    </section>
+
+    <!-- Add more slides here -->
+</div>
+
+<section id="feature" class="section-p1">
+    <div class="fe-box">
+        <img src="/static/image/features/f1.png" alt="">
+        <h6>Free Shipping</h6>
+    </div>
+    <div class="fe-box">
+        <img src="/static/image/features/f2.png" alt="">
+        <h6>Online Orders</h6>
+    </div>
+
+    <div class="fe-box">
+        <img src="/static/image/features/f3.png" alt="">
+        <h6>Save Money</h6>
+    </div>
+
+    <div class="fe-box">
+        <img src="/static/image/features/f4.png" alt="">
+        <h6>Promotions</h6>
+    </div>
+    <div class="fe-box">
+        <img src="/static/image/features/f5.png" alt="">
+        <h6>Happy Sell</h6>
+    </div>
+
+    <div class="fe-box">
+        <img src="/static/image/features/f6.png" alt="">
+        <h6>24/7 Support</h6>
+    </div>
+</section>
+
+<section id="product1" class="section-p1">
+    <h2>Sản phẩm nổi bật</h2>
+    <div class="pro-container">
+        <div class="pro" th:each="product : ${att}">
+            <!-- Hiển thị hình ảnh sản phẩm -->
+            <a th:href="@{/detail/{id}(id=${product.id})}">
+                <img th:src="${product.hinhAnhUrl}" alt="">
+                <div class="des">
+                    <!-- Hiển thị tên sản phẩm -->
+                    <h5 th:text="${product.ten}"></h5>
+                    <div class="rating">
+                        <!-- Tạo đánh giá sao tùy theo thông tin bạn có về sản phẩm -->
+                        <!-- Ví dụ: Tạo đánh giá sao tại đây nếu cần -->
+                    </div>
+                    <!-- Hiển thị giá sản phẩm -->
+                    <h4 th:text="'&#8377;' + ${product.giaBan}"></h4>
+                </div>
+            </a>
+            <a href=""><i class="fa fa-bag-shopping cart"></i></a>
+        </div>
+    </div>
+</section>
+
+
+<!--<section id="product1" class="section-p1">-->
+<!--    <h2>Sản phẩm nổi bật</h2>-->
+<!--    <div class="pro-container">-->
+<!--        <div class="pro" th:each="product : ${att}">-->
+<!--            &lt;!&ndash; Hiển thị hình ảnh sản phẩm &ndash;&gt;-->
+<!--&lt;!&ndash;            <img th:src="@{/static/image/${product.hinhAnh}}" alt="">&ndash;&gt;-->
+<!--            <img th:src="${product.hinhAnhUrl}" alt="">-->
+
+<!--            <div class="des">-->
+<!--                &lt;!&ndash; Hiển thị tên sản phẩm &ndash;&gt;-->
+<!--                <h5 th:text="${product.ten}"></h5>-->
+<!--                <div class="rating">-->
+<!--                    &lt;!&ndash; Tạo đánh giá sao tùy theo thông tin bạn có về sản phẩm &ndash;&gt;-->
+<!--                    &lt;!&ndash; Ví dụ: Tạo đánh giá sao tại đây nếu cần &ndash;&gt;-->
+<!--                </div>-->
+<!--                &lt;!&ndash; Hiển thị giá sản phẩm &ndash;&gt;-->
+<!--                <h4 th:text="'&#8377;' + ${product.giaBan}"></h4>-->
+<!--            </div>-->
+<!--            <a href=""><i class="fa fa-bag-shopping cart"></i></a>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</section>-->
+
+<section id="banner" class="section-m1">
+    <h4>Repair Serivices</h4>
+    <h2>Up to <span>70% Off</span> - All t-Shirts & Accessories</h2>
+    <button class="normal">Explore More</button>
+</section>
+
+<section id="product1" class="section-p1">
+    <h2>New Arrivals</h2>
+    <p>Latest Ethnic Design</p>
+    <div class="pro-container">
+        <div class="pro">
+            <img src="img/products/n1.jpg" alt="">
+            <div class="des">
+                <span>Manayvar</span>
+                <h5>Cotton Kurta -Pink</h5>
+                <div class="rating">
+                    <i class="fas fa-star mark"></i>
+                    <i class="fas fa-star mark"></i>
+                    <i class="fas fa-star mark"></i>
+                    <i class="fas fa-star mark"></i>
+                    <i class="fas fa-star mark"></i>
+                </div>
+                <h4>&#8377;1200</h4>
+            </div>
+            <a href=""><i class="fa fa-bag-shopping cart"></i></a>
+        </div>
+        <div class="pro">
+            <img src="img/products/n2.jpg" alt="">
+            <div class="des">
+                <span>FabIndia</span>
+                <h5>Pink Glooming Silk Saree</h5>
+                <div class="rating">
+                    <i class="fas fa-star mark"></i>
+                    <i class="fas fa-star mark"></i>
+                    <i class="fas fa-star mark"></i>
+                    <i class="fas fa-star mark"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <h4>&#8377;1200</h4>
+            </div>
+            <a href=""><i class="fa fa-bag-shopping cart"></i></a>
+        </div>
+        <div class="pro">
+            <img src="img/products/n3.jpg" alt="">
+            <div class="des">
+                <span>Manayvar</span>
+                <h5>Cotton Kurta -Pink</h5>
+                <div class="rating">
+                    <i class="fas fa-star mark"></i>
+                    <i class="fas fa-star mark"></i>
+                    <i class="fas fa-star mark"></i>
+                    <i class="fas fa-star mark"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <h4>&#8377;1200</h4>
+            </div>
+            <a href=""><i class="fa fa-bag-shopping cart"></i></a>
+        </div>
+        <div class="pro">
+            <img src="img/products/n4.jpg" alt="">
+            <div class="des">
+                <span>Manayvar</span>
+                <h5>Cotton Kurta -Pink</h5>
+                <div class="rating">
+                    <i class="fas fa-star mark"></i>
+                    <i class="fas fa-star mark"></i>
+                    <i class="fas fa-star mark"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <h4>&#8377;1200</h4>
+            </div>
+            <a href=""><i class="fa fa-bag-shopping cart"></i></a>
+        </div>
+        <div class="pro">
+            <img src="img/products/n5.jpg" alt="">
+            <div class="des">
+                <span>Manayvar</span>
+                <h5>Cotton Kurta -Pink</h5>
+                <div class="rating">
+                    <i class="fas fa-star mark"></i>
+                    <i class="fas fa-star mark"></i>
+                    <i class="fas fa-star mark"></i>
+                    <i class="fas fa-star mark"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <h4>&#8377;1200</h4>
+            </div>
+            <a href=""><i class="fa fa-bag-shopping cart"></i></a>
+        </div>
+        <div class="pro">
+            <img src="img/products/n6.jpg" alt="">
+            <div class="des">
+                <span>Manayvar</span>
+                <h5>Cotton Kurta -Pink</h5>
+                <div class="rating">
+                    <i class="fas fa-star mark"></i>
+                    <i class="fas fa-star mark"></i>
+                    <i class="fas fa-star mark"></i>
+                    <i class="fas fa-star mark"></i>
+                    <i class="fas fa-star mark"></i>
+                </div>
+                <h4>&#8377;1200</h4>
+            </div>
+            <a href=""><i class="fa fa-bag-shopping cart"></i></a>
+        </div>
+        <div class="pro">
+            <img src="img/products/n7.jpg" alt="">
+            <div class="des">
+                <span>Manayvar</span>
+                <h5>Cotton Kurta -Pink</h5>
+                <div class="rating">
+                    <i class="fas fa-star mark"></i>
+                    <i class="fas fa-star mark"></i>
+                    <i class="fas fa-star mark"></i>
+                    <i class="fas fa-star mark"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <h4>&#8377;1200</h4>
+            </div>
+            <a href=""><i class="fa fa-bag-shopping cart"></i></a>
+        </div>
+        <div class="pro">
+            <img src="img/products/n8.jpg" alt="">
+            <div class="des">
+                <span>Manayvar</span>
+                <h5>Cotton Kurta -Pink</h5>
+                <div class="rating">
+                    <i class="fas fa-star  mark"></i>
+                    <i class="fas fa-star mark"></i>
+                    <i class="fas fa-star mark"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <h4>&#8377;1200</h4>
+            </div>
+            <a href=""><i class="fa fa-bag-shopping cart"></i></a>
+        </div>
+    </div>
+</section>
+
+<section id="sm-banner" class="section-p1">
+    <div class="banner-box">
+        <h4>Crazy deals</h4>
+        <h2>buy 1 get 1 free</h2>
+        <span>THe Best Classic Dress in on sale !</span>
+        <button class="white">Learn More</button>
+    </div>
+    <div class="banner-box ban2">
+<!--        <h4>Wedding/Traditionals</h4>-->
+<!--        <h2>Upcomming Season</h2>-->
+<!--        <span>THe Best Classic Dress in on sale !</span>-->
+        <button class="white">Collection</button>
+    </div>
+</section>
+
+<section id="banner3">
+    <div class="banner-box">
+<!--        <h2>Upcomming Season</h2>-->
+<!--        <h3>Ethnic Collection -60% OFF</h3>-->
+    </div>
+    <div class="banner-box ban2">
+<!--        <h2>Upcomming Season</h2>-->
+<!--        <h3>Ethnic Collection -60% OFF</h3>-->
+    </div>
+    <div class="banner-box ban3">
+<!--        <h2>Upcomming Season</h2>-->
+<!--        <h3>Ethnic Collection -60% OFF</h3>-->
+    </div>
+</section>
+
+
+<section id="newsletter" class="section-p1 section-m1">
+    <div class="newstext">
+        <h4>Sign Up For Newsletters</h4>
+        <p>Get E-mail updates about out latest shop and <span>special offers</span></p>
+    </div>
+    <div class="newsform">
+        <form action="">
+            <input type="email" placeholder="Your Email-Address" id="forminput">
+            <button class="normal">Sign Up</button>
+        </form>
+    </div>
+</section>
+
+<footer class="section-p1">
+    <div class="col">
+        <img src="img/logo.png" class="logo" alt="" height="50px">
+        <h4>Contact</h4>
+        <p><strong>Address:</strong> Lorem ipsum dolor sit</p>
+        <p><strong>Hours:</strong> 10:30 a.m - 9:30 p.m ,Mon - Sat</p>
+        <div class="follow">
+            <h4>Follow us</h4>
+            <div class="icons">
+                <a href=""><i class="fab fa-facebook-square"></i></a>
+                <a href=""><i class="fab fa-twitter"></i></a>
+                <a href=""><i class="fab fa-instagram"></i></a>
+                <a href=""><i class="fab fa-pinterest-square"></i></a>
+                <a href=""><i class="fab fa-youtube"></i></a>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <h4>About</h4>
+        <a href="">About us</a>
+        <a href="">Delivery Information</a>
+        <a href="">Privacy Policy</a>
+        <a href="">Terms & Conditions</a>
+        <a href="">Contact us</a>
+    </div>
+    <div class="col">
+        <h4>My Account</h4>
+        <a href="">Sign in</a>
+        <a href="">View Cart</a>
+        <a href="">My Wishlist</a>
+        <a href="">Track My Order</a>
+        <a href="">Help</a>
+    </div>
+
+    <div class="col install">
+        <h4>Install App</h4>
+        <p>From App Store or Google Play</p>
+        <div class="row">
+            <img src="img/pay/app.jpg" alt="">
+            <img src="img/pay/play.jpg" alt="">
+        </div>
+        <p>Secured Payment Gateway</p>
+        <img src="img/pay/pay.png" alt="">
+    </div>
+
+    <div class="copyright">
+        <p>Made with &#10084; By Satwik Agrawal | &#169; 2022 All Rights Reserved.</p>
+    </div>
+</footer>
+
+<script src="/static/js/home/script.js"></script>
+</body>
+
+</html>

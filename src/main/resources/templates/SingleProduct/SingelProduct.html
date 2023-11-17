@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IFF | INDIAN FASHION FEVER E-COMMERCE</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"/>
+    <link rel="shortcut icon" type="image" href="img/IFF.png">
+    <link rel="stylesheet" href="/static/css/home/style.css">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/medium-zoom/0.23.1/medium-zoom.min.css" integrity="sha512-t0lttfxTVxmsj5zI60ZPH+fn2TPH8WLCvabZS5jRtLw8I/qM8wD8ZpRVbyB9gO6Z6XkmfPfOz9tY/Qup0K08jQ==" crossorigin="anonymous"> -->
+    <link rel="stylesheet" href="/static/css/SingleProduct/main.min.css">
+    <link rel="stylesheet" href="/static/css/SingleProduct/style.css">
+    <link rel="stylesheet" href="/static/css/SingleProduct/color.css">
+    <link rel="stylesheet" href="/static/css/SingleProduct/responsive.css.css">
+
+    <!-- Add Slick styles -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+    <link rel="stylesheet" type="text/css"
+          href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
+</head>
+<!--<script src="path/to/zoom.js"></script>-->
+
+<body>
+<!-- navbar/header section -->
+<section id="header">
+    <a href=""><img src="img/logo.png" class="logo" alt=""></a>
+
+    <div>
+        <ul id="navbar">
+            <li><a href="/Home/">Home</a></li>
+            <li><a class="active" href="shop.html">Shop</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Support</a></li>
+            <li id="lg-bag"><a href="cart.html"><i class="fa-solid fa-cart-shopping"></i></a></li>
+            <a id="close"><i class="fa fa-times"></i></a>
+        </ul>
+    </div>
+    <div id="toggler">
+        <a href="cart.html"><i class="fa-solid fa-cart-shopping"></i></a>
+        <i id="bar" class="fas fa-outdent"></i>
+
+    </div>
+</section>
+<section>
+    <div class="gap100">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="prod-detail">
+                        <div class="row">
+                            <!--                            <div class="col-lg-6">-->
+                            <!--                                <div class="prod-avatar">-->
+                            <!--                                    <ul class="slider-for-gold">-->
+                            <!--                                        <li th:each="anh : ${danhSachAnh}">-->
+                            <!--                                            <img th:src="${anh.url}" alt="">-->
+                            <!--                                        </li>-->
+                            <!--                                    </ul>-->
+                            <!--                                    <ul class="slider-nav-gold">-->
+                            <!--                                        <li th:each="anh : ${danhSachAnh}">-->
+                            <!--                                            <img th:src="${anh.url}" alt="">-->
+                            <!--                                        </li>-->
+                            <!--                                    </ul>-->
+                            <!--                                </div>-->
+                            <!--                            </div>-->
+
+
+                            <div class="col-lg-6">
+                                <!--                                <div class="prod-avatar">-->
+                                <!--                                    <ul class="slider-for-gold">-->
+                                <!--                                        <li><img src="img/products/f1.jpg" alt=""></li>-->
+                                <!--                                        <li><img src="img/products/f1-2.jpg" alt=""></li>-->
+                                <!--                                        <li><img src="img/products/f1-3.jpg" alt=""></li>-->
+                                <!--                                        <li><img src="img/products/f1-4.jpg" alt=""></li>-->
+                                <!--                                    </ul>-->
+                                <!--                                    <ul class="slider-nav-gold">-->
+                                <!--                                        <li><img src="img/products/f1.jpg" alt=""></li>-->
+                                <!--                                        <li><img src="img/products/f1-2.jpg" alt=""></li>-->
+                                <!--                                        <li><img src="img/products/f1-3.jpg" alt=""></li>-->
+                                <!--                                        <li><img src="img/products/f1-4.jpg" alt=""></li>-->
+                                <!--                                    </ul>-->
+                                <!--                                </div>-->
+
+                                <div class="prod-avatar">
+                                    <ul class="slider-for-gold">
+                                        <li th:each="anh : ${chiTietSanPham.anhs}">
+                                            <img th:src="@{'data:image/jpeg;base64,' + ${anh.tenBase64}}" alt="">
+                                        </li>
+                                    </ul>
+                                    <ul class="slider-nav-gold">
+                                        <li th:each="anh : ${chiTietSanPham.anhs}">
+                                            <img th:src="@{'data:image/jpeg;base64,' + ${anh.tenBase64}}" alt="">
+                                        </li>
+                                    </ul>
+                                </div>
+
+
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="full-postmeta">
+                                    <h2 class="main-title text-center" th:text="${chiTietSanPham.sanPham.ten}"></h2>
+                                    <span class="prices style2">
+											<ins>
+												<span class="woocommerce-Price-amount amount">
+<!--													<span class="woocommerce-Price-currencySymbol">$</span>122.00-->
+                                                    <span th:text="${chiTietSanPham.giaBan}"></span>
+												</span>
+											</ins>
+                                        <!--											<del>-->
+                                        <!--												<span class="woocommerce-Price-amount amount">-->
+                                        <!--													<span class="woocommerce-Price-currencySymbol">$</span>150.00-->
+                                        <!--												</span>-->
+                                        <!--											</del>-->
+                                    	</span>
+
+
+                                    <!--                                    <i>INSPIRED LIVING</i>-->
+                                    <!--                                    <p>-->
+                                    <!--                                        Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor-->
+                                    <!--                                    </p>-->
+                                    <a class="shopnow" title="" href="#">Add To Cart</a>
+                                    <div class="delivery-guide">
+                                        <h6>Select Size</h6>
+
+                                        <div class="size-selector">
+                                            <div class="size-option" onclick="selectSize('S')">S</div>
+                                            <div class="size-option" onclick="selectSize('M')">M</div>
+                                            <div class="size-option" onclick="selectSize('L')">L</div>
+                                            <div class="size-option" onclick="selectSize('XL')">XL</div>
+                                        </div>
+
+                                    </div>
+                                    <a class="add_to_wishlist" href="#" title=""><i class="fa fa-heart-o"></i></a>
+                                    <div class="prod categories">
+											<span class="cat-heading">Categories:
+												<a href="#" title="" th:text="${chiTietSanPham.LoaiSanPham.ten}"></a>
+                                                <!--												<a href="#" title="">Shoes</a>-->
+											</span>
+                                    </div>
+                                    <!--                                    <div class="prod tags">-->
+                                    <!--											<span class="cat-heading">Tags:-->
+                                    <!--												<a href="#" title="">Jeanz</a>-->
+                                    <!--												<a href="#" title="">Women</a>-->
+                                    <!--												<a href="#" title="">Shoes</a>-->
+                                    <!--											</span>-->
+                                    <!--                                    </div>-->
+                                    <div class="share">
+                                        <span>share</span>
+                                        <a href="#" title=""><i class="fa fa-facebook-square"></i></a>
+                                        <a href="#" title=""><i class="fa fa-twitter-square"></i></a>
+                                        <a href="#" title=""><i class="fa fa-google-plus-square"></i></a>
+                                    </div>
+                                    <!--                                    <div class="extras">-->
+                                    <!--                                        <a href="https://www.youtube.com/watch?v=MIbbtEjdYrc" title="" data-strip-group="mygroup" class="strip btn2" data-strip-options="width: 700,height: 450,youtube: { autoplay: 1 }"><i class="fa fa-play-circle"></i>Watch video</a>-->
+                                    <!--                                    </div>&lt;!&ndash; play video btn &ndash;&gt;-->
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="gap no-bottom">
+                            <div class="tab-section">
+                                <ul class="nav nav-tabs single-btn">
+                                    <li class="nav-item"><a class="active" href="#desc" data-toggle="tab">Mô tả</a></li>
+                                    <li class="nav-item"><a class="" href="#additional" data-toggle="tab">Thông tin chi
+                                        tiết</a></li>
+                                    <li class="nav-item"><a class="" href="#review" data-toggle="tab">Đánh giá</a></li>
+                                </ul>
+
+                                <!-- Tab panes -->
+                                <div class="tab-content">
+                                    <div class="tab-pane active fade show " id="desc">
+                                        <div class="more-pix">
+                                            <h2 class="main-title text-center"
+                                                th:text="${chiTietSanPham.sanPham.ten}"></h2>
+                                            <div class="row">
+                                                <div class="offset-md-1 col-lg-10">
+                                                    <p class="prod-info text-center"
+                                                       th:text="${chiTietSanPham.sanPham.moTa}">
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="additional">
+                                        <div class="aditional-inf">
+                                            <h2 class="main-title">Shoes for Men Black</h2>
+                                            <p class="adition-info">
+                                                Fusce vestibulum justo id varius tristique. Vivamus purus odio, interdum
+                                                id massa ullamcorper, tempus.
+                                            </p>
+                                            <table class="table table-responsive adition">
+                                                <tbody>
+                                                <tr>
+                                                    <td class="bold">Chất liệu:</td>
+                                                    <td th:text="${chiTietSanPham.ChatLieu.ten}"></td>
+                                                </tr>
+                                                <!--                                                <tr>-->
+                                                <!--                                                    <td class="bold">Weight:</td>-->
+                                                <!--                                                    <td>100 g</td>-->
+                                                <!--                                                </tr>-->
+                                                <tr>
+                                                    <td class="bold">Màu Sắc:</td>
+                                                    <td th:text="${chiTietSanPham.MauSac.tenMauSac}"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="bold">Size:</td>
+                                                    <td>
+             <span th:each="chiTietKichCo, iterStat : ${chiTietSanPham.chiTietKichCos}">
+    <span th:text="${chiTietKichCo.kichCo.ten}"></span>
+                 <!-- Thêm dấu phẩy nếu không phải là size cuối cùng -->
+    <span th:if="${!iterStat.last}">, </span>
+     </span>
+
+                                                    </td>
+                                                </tr>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="review">
+                                        <div class="woocommerce-Reviews">
+                                            <div id="comments">
+                                                <h2 class="woocommerce-Reviews-title">Reviews</h2>
+                                                <ol class="commentlist">
+                                                    <li>
+                                                        <div class="comment_container">
+                                                            <img src="../images/resources/single-comment1.jpg" alt=""
+                                                                 class="avatar">
+                                                            <div class="comment-text">
+                                                                <span class="user-name">Jason Bourne</span>
+                                                                <a class="post-date">24 Sep 2018</a>
+                                                                <div class="star-rating">
+                                                                    <span><i class="fa fa-star"></i></span>
+                                                                    <span><i class="fa fa-star"></i></span>
+                                                                    <span><i class="fa fa-star"></i></span>
+                                                                    <span><i class="fa fa-star"></i></span>
+                                                                    <span><i class="fa fa-star"></i></span>
+                                                                </div>
+                                                                <p>
+                                                                    Duis ante magna, aliquet sit amet sagittis vitae,
+                                                                    tristique at lacus. Ut et accumsan turpis. Phasellus
+                                                                    ornare, tortor ut congue imperdiet, mauris magna
+                                                                    condimentum nulla, non malesuada mauris massa eu
+                                                                    augue.
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="comment_container">
+                                                            <img src="../images/resources/single-comment1.jpg" alt=""
+                                                                 class="avatar">
+                                                            <div class="comment-text">
+                                                                <span class="user-name">Jhon Cena</span>
+                                                                <a class="post-date">12 Aug 2018</a>
+                                                                <div class="star-rating">
+                                                                    <span><i class="fa fa-star"></i></span>
+                                                                    <span><i class="fa fa-star"></i></span>
+                                                                    <span><i class="fa fa-star"></i></span>
+                                                                    <span><i class="fa fa-star"></i></span>
+                                                                    <span><i class="fa fa-star"></i></span>
+                                                                </div>
+                                                                <p>
+                                                                    Duis ante magna, aliquet sit amet sagittis vitae,
+                                                                    tristique at lacus. Ut et accumsan turpis. Phasellus
+                                                                    ornare, tortor ut congue imperdiet, mauris magna
+                                                                    condimentum nulla, non malesuada mauris massa eu
+                                                                    augue.
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                </ol>
+                                            </div>
+                                            <div id="respond" class="comment-respond">
+                                                <h3 class="reply-title">Post Your Review:</h3>
+                                                <div class="star-rating">
+                                                    <label>Rating:</label>
+                                                    <span><i class="fa fa-star"></i></span>
+                                                    <span><i class="fa fa-star"></i></span>
+                                                    <span><i class="fa fa-star"></i></span>
+                                                    <span><i class="fa fa-star"></i></span>
+                                                    <span><i class="fa fa-star"></i></span>
+                                                </div>
+                                                <form method="post">
+                                                    <p class="comment-notes"><span id="email-notes">Your email address will not be published.</span>
+                                                        Required fields are marked <span class="required">*</span>
+                                                    </p>
+
+                                                    <p class="comment-form-author">
+                                                        <input type="text" placeholder="Your Name*">
+                                                    </p>
+                                                    <p class="comment-form-email">
+                                                        <input type="text" placeholder="Email*">
+                                                    </p>
+                                                    <p class="comment-notes">
+                                                        <textarea placeholder="Enter your review*"></textarea>
+                                                    </p>
+                                                </form>
+
+                                                <p class="form-submit">
+                                                    <input type="submit" class="submit" value="submit">
+                                                </p>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Sản phẩm khác -->
+
+
+                        <div class="gap no-bottom">
+                            <div class="section-heading">
+                                <h2>Related Products</h2>
+                            </div>
+                            <div class="row remove-ext-50">
+                                <div class="col-lg-3 col-sm-6">
+                                    <div class="product-box">
+                                        <figure>
+                                            <span class="new">New</span>
+                                            <img src="img/products/f7.jpg" alt="">
+                                            <ul class="cart-optionz">
+                                                <li><a href="#" title="Add Cart" data-toggle="tooltip"><i
+                                                        class="ti-shopping-cart"></i></a></li>
+                                                <li><a href="#" title="Quick Shop" data-toggle="tooltip"><i
+                                                        class="ti-eye"></i></a></li>
+                                                <li><a href="#" title="Wishlist" data-toggle="tooltip"><i
+                                                        class="ti-heart"></i></a></li>
+                                                <li><a href="#" title="Compare" data-toggle="tooltip"><i
+                                                        class="ti-split-v-alt"></i></a></li>
+                                            </ul>
+                                        </figure>
+                                        <div class="product-name">
+                                            <h5><a href="#" title="">GSound wireless Headphone</a></h5>
+                                            <ul class="starz">
+                                                <li><i class="fa fa-star"></i></li>
+                                                <li><i class="fa fa-star"></i></li>
+                                                <li><i class="fa fa-star"></i></li>
+                                                <li><i class="fa fa-star"></i></li>
+                                                <li><i class="fa fa-star"></i></li>
+                                            </ul>
+                                            <div class="prices">
+                                                <ins>$29</ins>
+                                                <del>$39</del>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-sm-6">
+                                    <div class="product-box">
+                                        <figure>
+                                            <span class="hot">Hot</span>
+                                            <img src="img/products/f6.jpg" alt="">
+                                            <ul class="cart-optionz">
+                                                <li><a href="#" title="Add Cart" data-toggle="tooltip"><i
+                                                        class="ti-shopping-cart"></i></a></li>
+                                                <li><a href="#" title="Quick Shop" data-toggle="tooltip"><i
+                                                        class="ti-eye"></i></a></li>
+                                                <li><a href="#" title="Wishlist" data-toggle="tooltip"><i
+                                                        class="ti-heart"></i></a></li>
+                                                <li><a href="#" title="Compare" data-toggle="tooltip"><i
+                                                        class="ti-split-v-alt"></i></a></li>
+                                            </ul>
+                                        </figure>
+                                        <div class="product-name">
+                                            <h5><a href="#" title="">High class Men watch</a></h5>
+                                            <ul class="starz">
+                                                <li><i class="fa fa-star"></i></li>
+                                                <li><i class="fa fa-star"></i></li>
+                                                <li><i class="fa fa-star"></i></li>
+                                                <li><i class="fa fa-star"></i></li>
+                                                <li><i class="fa fa-star"></i></li>
+                                            </ul>
+                                            <div class="prices">
+                                                <ins>$29</ins>
+                                                <del>$39</del>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-sm-6">
+                                    <div class="product-box">
+                                        <figure>
+                                            <img src="img/products/n8.jpg" alt="">
+                                            <ul class="cart-optionz">
+                                                <li><a href="#" title="Add Cart" data-toggle="tooltip"><i
+                                                        class="ti-shopping-cart"></i></a></li>
+                                                <li><a href="#" title="Quick Shop" data-toggle="tooltip"><i
+                                                        class="ti-eye"></i></a></li>
+                                                <li><a href="#" title="Wishlist" data-toggle="tooltip"><i
+                                                        class="ti-heart"></i></a></li>
+                                                <li><a href="#" title="Compare" data-toggle="tooltip"><i
+                                                        class="ti-split-v-alt"></i></a></li>
+                                            </ul>
+                                        </figure>
+                                        <div class="product-name">
+                                            <h5><a href="#" title="">Shoes for Men</a></h5>
+                                            <ul class="starz">
+                                                <li><i class="fa fa-star"></i></li>
+                                                <li><i class="fa fa-star"></i></li>
+                                                <li><i class="fa fa-star"></i></li>
+                                                <li><i class="fa fa-star"></i></li>
+                                                <li><i class="fa fa-star"></i></li>
+                                            </ul>
+                                            <div class="prices">
+                                                <ins>$49</ins>
+                                                <del>$59</del>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-sm-6">
+                                    <div class="product-box">
+                                        <figure>
+                                            <span class="sale">sale</span>
+                                            <img src="img/products/n2.jpg" alt="">
+                                            <ul class="cart-optionz">
+                                                <li><a href="#" title="Add Cart" data-toggle="tooltip"><i
+                                                        class="ti-shopping-cart"></i></a></li>
+                                                <li><a href="#" title="Quick Shop" data-toggle="tooltip"><i
+                                                        class="ti-eye"></i></a></li>
+                                                <li><a href="#" title="Wishlist" data-toggle="tooltip"><i
+                                                        class="ti-heart"></i></a></li>
+                                                <li><a href="#" title="Compare" data-toggle="tooltip"><i
+                                                        class="ti-split-v-alt"></i></a></li>
+                                            </ul>
+                                        </figure>
+                                        <div class="product-name">
+                                            <h5><a href="#" title="">Leather Pent Belt</a></h5>
+                                            <ul class="starz">
+                                                <li><i class="fa fa-star"></i></li>
+                                                <li><i class="fa fa-star"></i></li>
+                                                <li><i class="fa fa-star"></i></li>
+                                                <li><i class="fa fa-star"></i></li>
+                                                <li><i class="fa fa-star"></i></li>
+                                            </ul>
+                                            <div class="prices">
+                                                <ins>$29</ins>
+                                                <del>$39</del>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- newletter section -->
+                        <!-- <section id="newsletter" class="section-p1 section-m1">
+                            <div class="newstext">
+                                <h4>Sign Up For Newsletters</h4>
+                                <p>Get E-mail updates about out latest shop and <span>special offers</span></p>
+                            </div>
+                            <div class="newsform">
+                                <form action="">
+                                    <input type="email" placeholder="Your Email-Address" id="forminput">
+                                    <button class="normal">Sign Up</button>
+                                </form>
+                            </div>
+                        </section> -->
+
+                        <!-- footer section -->
+                        <footer>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-lg-4 col-md-4">
+                                        <div class="widget">
+                                            <div class="foot-logo">
+                                                <div class="logo">
+                                                    <a href="index-2.html" title=""><img src="../images/logo.png"
+                                                                                         alt=""></a>
+                                                </div>
+                                                <p>
+                                                    The trio took this simple idea and built it into the world’s leading
+                                                    carpooling platform.
+                                                </p>
+                                            </div>
+                                            <ul class="location">
+                                                <li>
+                                                    <i class="ti-map-alt"></i>
+                                                    <p>33 new montgomery st.750 san francisco, CA USA 94105.</p>
+                                                </li>
+                                                <li>
+                                                    <i class="ti-mobile"></i>
+                                                    <p>+1-56-346 345</p>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2 col-md-4">
+                                        <div class="widget">
+                                            <div class="widget-title"><h4>follow</h4></div>
+                                            <ul class="list-style">
+                                                <li><i class="fa fa-facebook-square"></i> <a
+                                                        href="https://web.facebook.com/shopcircut/"
+                                                        title="">facebook</a></li>
+                                                <li><i class="fa fa-twitter-square"></i><a
+                                                        href="https://twitter.com/login?lang=en" title="">twitter</a>
+                                                </li>
+                                                <li><i class="fa fa-instagram"></i><a
+                                                        href="https://www.instagram.com/?hl=en" title="">instagram</a>
+                                                </li>
+                                                <li><i class="fa fa-google-plus-square"></i> <a
+                                                        href="https://plus.google.com/discover" title="">Google+</a>
+                                                </li>
+                                                <li><i class="fa fa-pinterest-square"></i> <a
+                                                        href="https://www.pinterest.com/" title="">Pintrest</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2 col-md-4">
+                                        <div class="widget">
+                                            <div class="widget-title"><h4>Navigate</h4></div>
+                                            <ul class="list-style">
+                                                <li><a href="about.html" title="">about us</a></li>
+                                                <li><a href="contact.html" title="">contact us</a></li>
+                                                <li><a href="terms.html" title="">terms & Conditions</a></li>
+                                                <li><a href="#" title="">RSS syndication</a></li>
+                                                <li><a href="sitemap.html" title="">Sitemap</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2 col-md-4">
+                                        <div class="widget">
+                                            <div class="widget-title"><h4>useful links</h4></div>
+                                            <ul class="list-style">
+                                                <li><a href="#" title="">leasing</a></li>
+                                                <li><a href="#" title="">submit route</a></li>
+                                                <li><a href="#" title="">how does it work?</a></li>
+                                                <li><a href="#" title="">agent listings</a></li>
+                                                <li><a href="#" title="">view All</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2 col-md-4">
+                                        <div class="widget">
+                                            <div class="widget-title"><h4>download apps</h4></div>
+                                            <ul class="colla-apps">
+                                                <li><a href="https://play.google.com/store?hl=en" title=""><i
+                                                        class="fa fa-android"></i>android</a></li>
+                                                <li><a href="https://www.apple.com/lae/ios/app-store/" title=""><i
+                                                        class="ti-apple"></i>iPhone</a></li>
+                                                <li><a href="https://www.microsoft.com/store/apps" title=""><i
+                                                        class="fa fa-windows"></i>Windows</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </footer>
+                        <!--                        <script>-->
+                        <!--                            var mainImg = document.getElementById('MainImg');-->
+                        <!--                            var smimg = document.getElementsByClassName('small-img');-->
+
+                        <!--                            smimg[0].onclick = function () {-->
+                        <!--                                mainImg.src = smimg[0].src;-->
+                        <!--                            }-->
+                        <!--                            smimg[1].onclick = function () {-->
+                        <!--                                mainImg.src = smimg[1].src;-->
+                        <!--                            }-->
+                        <!--                            smimg[2].onclick = function () {-->
+                        <!--                                mainImg.src = smimg[2].src;-->
+                        <!--                            }-->
+                        <!--                            smimg[3].onclick = function () {-->
+                        <!--                                mainImg.src = smimg[3].src;-->
+                        <!--                            }-->
+                        <!--                        </script>-->
+
+
+                        <script src="script.js"></script>
+                        <script src="/static/js/single%20product/main.min.js"></script>
+                        <script src="/static/js/single%20product/script.js"></script>
+                        <!-- Add jQuery and Slick scripts -->
+                        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                        <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+</body>
+
+</html>

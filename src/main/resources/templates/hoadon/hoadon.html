@@ -1,0 +1,1158 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:thnum="http://www.thymeleaf.org/extras/numbers">
+<head>
+    <meta charset="utf-8">
+    <title>Hóa Đơn</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Responsive bootstrap 4 admin template" name="description">
+    <meta content="Coderthemes" name="author">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="../../static/assets\images\favicon.ico">
+    <link rel="stylesheet" type="text/css" media="all" th:href="@{../../static/css/style.css}"/>
+
+    <!-- App css -->
+    <script src="https://kit.fontawesome.com/52ef4965e2.js" crossorigin="anonymous"></script>
+
+    <!-- Bootstrap 5 CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
+          integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+          integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+    <link href="../../static/assets\css\bootstrap.min.css" rel="stylesheet" type="text/css" id="bootstrap-stylesheet">
+    <link href="../../static/assets\css\icons.min.css" rel="stylesheet" type="text/css">
+    <link href="../../static/assets\css\app.min.css" rel="stylesheet" type="text/css" id="app-stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <style>
+        @import url('https://rsms.me/inter/inter.css');
+
+        :root {
+            --color-light: white;
+            --color-dark: #212121;
+            --color-signal: #fab700;
+
+            --color-background: var(--color-light);
+            --color-text: var(--color-dark);
+            --color-accent: var(--color-signal);
+
+            --size-bezel: .05rem;
+            --size-radius: 1px;
+
+            /*line-height: 1.4;*/
+
+            font-family: 'Inter', sans-serif;
+            font-size: calc(.6rem + .4vw);
+            color: var(--color-text);
+            background: none;
+            /*font-weight: 300;*/
+            padding: 0 calc(var(--size-bezel) * 3);
+        }
+
+        .input {
+            position: relative;
+        }
+
+        .input__label {
+            position: absolute;
+            left: 0;
+            top: 0;
+            padding: calc(var(--size-bezel) * 0.75) calc(var(--size-bezel) * .5);
+            margin: calc(var(--size-bezel) * 0.75 + 3px) calc(var(--size-bezel) * .5);
+            background: pink;
+            white-space: nowrap;
+            transform: translate(0, 0);
+            transform-origin: 0 0;
+            background: var(--color-background);
+            transition: transform 120ms ease-in;
+            font-weight: bold;
+            /*line-height: 1.2;*/
+        }
+
+        .input__field {
+            box-sizing: border-box;
+            display: block;
+            width: 100%;
+            border: 3px solid currentColor;
+            padding: calc(var(--size-bezel) * 1.5) var(--size-bezel);
+            color: currentColor;
+            background: transparent;
+            border-radius: var(--size-radius);
+        }
+
+        .input__field:not(:placeholder-shown) + .input__label {
+            transform: translate(.25rem, -65%) scale(.8);
+            color: var(--color-accent);
+        }
+
+        .button-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .export-form {
+            margin: 0;
+            padding: 0;
+        }
+
+        .export-button {
+            border: none;
+            background: none;
+            padding: 0;
+            cursor: pointer;
+        }
+
+        .export-button a {
+            text-decoration: none;
+        }
+
+        .export-button img {
+            vertical-align: middle;
+        }
+
+        .search-date-input {
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 6px;
+            font-size: 14px;
+            /*Thêm các thuộc tính khác tùy chỉnh kiểu dáng*/
+        }
+
+        .search-button {
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+        }
+
+        .search-button:hover {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+        }
+
+        .search-button .btn-icon,
+        .search-button .separator,
+        .search-button .btn-text {
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .search-button .separator {
+            margin: 0 5px;
+        }
+
+        .search-button .btn-icon i {
+            color: white;
+        }
+
+        .search-button .btn-text {
+            font-weight: bold;
+            color: white;
+        }
+
+        .search-button {
+            background-color: blue;
+            color: white;
+            border-color: blue;
+        }
+
+        .search-button .btn-icon,
+        .search-button .separator,
+        .search-button .btn-text {
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .search-button .separator {
+            margin: 0 5px;
+            color: white;
+        }
+
+        .search-button .btn-icon i {
+            color: white;
+        }
+
+        .search-button .btn-text {
+            font-weight: bold;
+        }
+
+        .shadow-button {
+            position: relative;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+            transition: box-shadow 0.3s ease;
+        }
+
+        .shadow-button:hover {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+        }
+    </style>
+
+    <style>
+        .alert > .start-icon {
+            margin-right: 0;
+            min-width: 20px;
+            text-align: center;
+        }
+
+        .alert > .start-icon {
+            margin-right: 5px;
+        }
+
+        .greencross {
+            font-size: 18px;
+            color: #25ff0b;
+            text-shadow: none;
+        }
+
+        .alert-simple.alert-success {
+            border: 1px solid rgba(36, 241, 6, 0.46);
+            background-color: rgba(7, 149, 66, 0.12156862745098039);
+            box-shadow: 0px 0px 2px #259c08;
+            color: #0ad406;
+            text-shadow: 2px 1px #00040a;
+            transition: 0.5s;
+            cursor: pointer;
+        }
+
+        .alert-success:hover {
+            background-color: rgba(7, 149, 66, 0.35);
+            transition: 0.5s;
+        }
+
+        .alert-simple.alert-info {
+            border: 1px solid rgba(6, 44, 241, 0.46);
+            background-color: rgba(7, 73, 149, 0.12156862745098039);
+            box-shadow: 0px 0px 2px #0396ff;
+            color: #0396ff;
+            text-shadow: 2px 1px #00040a;
+            transition: 0.5s;
+            cursor: pointer;
+        }
+
+        .alert-info:hover {
+            background-color: rgba(7, 73, 149, 0.35);
+            transition: 0.5s;
+        }
+
+        .blue-cross {
+            font-size: 18px;
+            color: #0bd2ff;
+            text-shadow: none;
+        }
+
+        .alert-simple.alert-warning {
+            border: 1px solid rgba(241, 142, 6, 0.81);
+            background-color: rgba(220, 128, 1, 0.16);
+            box-shadow: 0px 0px 2px #ffb103;
+            color: #ffb103;
+            text-shadow: 2px 1px #00040a;
+            transition: 0.5s;
+            cursor: pointer;
+        }
+
+        .alert-warning:hover {
+            background-color: rgba(220, 128, 1, 0.33);
+            transition: 0.5s;
+        }
+
+        .warning {
+            font-size: 18px;
+            color: #ffb40b;
+            text-shadow: none;
+        }
+
+        .alert-simple.alert-danger {
+            border: 1px solid rgba(241, 6, 6, 0.81);
+            background-color: rgba(220, 17, 1, 0.16);
+            box-shadow: 0px 0px 2px #ff0303;
+            color: #ff0303;
+            text-shadow: 2px 1px #00040a;
+            transition: 0.5s;
+            cursor: pointer;
+        }
+
+        .alert-danger:hover {
+            background-color: rgba(220, 17, 1, 0.33);
+            transition: 0.5s;
+        }
+
+        .danger {
+            font-size: 18px;
+            color: #ff0303;
+            text-shadow: none;
+        }
+
+        .alert-simple.alert-primary {
+            border: 1px solid rgba(6, 241, 226, 0.81);
+            background-color: rgba(1, 204, 220, 0.16);
+            box-shadow: 0px 0px 2px #03fff5;
+            color: #03d0ff;
+            text-shadow: 2px 1px #00040a;
+            transition: 0.5s;
+            cursor: pointer;
+        }
+
+        .alert-primary:hover {
+            background-color: rgba(1, 204, 220, 0.33);
+            transition: 0.5s;
+        }
+
+        .alertprimary {
+            font-size: 18px;
+            color: #03d0ff;
+            text-shadow: none;
+        }
+
+        .square_box {
+            position: absolute;
+            -webkit-transform: rotate(45deg);
+            -ms-transform: rotate(45deg);
+            transform: rotate(45deg);
+            border-top-left-radius: 45px;
+            opacity: 0.302;
+        }
+
+        .square_box.box_three {
+            background-image: -moz-linear-gradient(-90deg, #290a59 0%, #3d57f4 100%);
+            background-image: -webkit-linear-gradient(-90deg, #290a59 0%, #3d57f4 100%);
+            background-image: -ms-linear-gradient(-90deg, #290a59 0%, #3d57f4 100%);
+            opacity: 0.059;
+            left: -80px;
+            top: -60px;
+            width: 500px;
+            height: 500px;
+            border-radius: 45px;
+        }
+
+        .square_box.box_four {
+            background-image: -moz-linear-gradient(-90deg, #290a59 0%, #3d57f4 100%);
+            background-image: -webkit-linear-gradient(-90deg, #290a59 0%, #3d57f4 100%);
+            background-image: -ms-linear-gradient(-90deg, #290a59 0%, #3d57f4 100%);
+            opacity: 0.059;
+            left: 150px;
+            top: -25px;
+            width: 550px;
+            height: 550px;
+            border-radius: 45px;
+        }
+
+        .alert:before {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: calc(100% - 44px);
+            border-left: 1px solid;
+            border-right: 2px solid;
+            border-bottom-right-radius: 3px;
+            border-top-right-radius: 3px;
+            left: 0;
+            top: 50%;
+            transform: translate(0, -50%);
+            height: 20px;
+        }
+
+        .fa-times {
+            -webkit-animation: blink-1 2s infinite both;
+            animation: blink-1 2s infinite both;
+        }
+
+
+        /**
+         * ----------------------------------------
+         * animation blink-1
+         * ----------------------------------------
+         */
+        @-webkit-keyframes blink-1 {
+            0%,
+            50%,
+            100% {
+                opacity: 1;
+            }
+            25%,
+            75% {
+                opacity: 0;
+            }
+        }
+
+        @keyframes blink-1 {
+            0%,
+            50%,
+            100% {
+                opacity: 1;
+            }
+            25%,
+            75% {
+                opacity: 0;
+            }
+        }
+    </style>
+
+
+</head>
+
+<body>
+
+<!-- Begin page -->
+<div id="wrapper">
+
+
+    <!-- Topbar Start -->
+    <div class="navbar-custom" th:insert="layout/nav.html :: header">
+
+    </div>
+    <!-- end Topbar -->
+    <!-- ========== Left Sidebar Start ========== -->
+    <div class="left-side-menu" th:insert="layout/slidebar.html :: header">
+
+    </div>
+    <!-- Left Sidebar End -->
+
+    <!-- ============================================================== -->
+    <!-- Start Page Content here -->
+    <!-- ============================================================== -->
+
+    <div class="content-page">
+        <div class="content">
+
+            <!-- Start Content-->
+            <div class="container-fluid">
+
+                <!-- start page title -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="page-title-box">
+                            <div class="page-title-center">
+                                <h1 class="page-title" style="text-align: center; font-size: 200%">Hóa Đơn </h1>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end page title -->
+
+                    <div class="row">
+                        <div class="col-12">
+
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="card-box" style="display: flex;justify-content:center ">
+                                        <div class="col-xl-12">
+                                            <div style="margin-left: 20px;" class="dataTables_filter">
+
+                                                <form th:object="${searchHD}"
+                                                      th:action="@{/hoa-don/hien-thi-page-search}"
+                                                      class="row form-row justify-content-between" id="searchForm">
+
+                                                    <div class="col-12 row container">
+
+                                                        <!-- Các trường input ẩn để lưu trữ giá trị tìm kiếm -->
+                                                        <!--                                                        <input type="hidden" >-->
+                                                        <!--                                                        <input type="hidden" >-->
+                                                        <!--                                                        <input type="hidden" >-->
+                                                        <!--                                                        <input type="hidden" name="trangThaiHidden" id="trangThaiHidden">-->
+                                                        <!--                                                        <input type="hidden" name="tuNgayHidden" id="tuNgayHidden">-->
+                                                        <!--                                                        <input type="hidden" name="denNgayHidden" id="denNgayHidden">-->
+                                                        <!--                                                        <input type="hidden" name="loaiDonHidden" id="loaiDonHidden">-->
+
+
+                                                        <div class=" col-2">
+
+                                                            <label class="input">
+                                                                <input style="height:28px;border-radius: 8px;width: 150px"
+                                                                       type="search"
+                                                                       class="input__field"
+                                                                       th:field="*{maHoaDon}"
+
+                                                                       name="maHoaDon" id="maHoaDon">
+                                                                <span style="font-size: 13px;font-weight: bold;"
+                                                                      class="input__label">Mã hóa đơn</span>
+                                                            </label>
+
+                                                        </div>
+
+
+                                                        <div class=" col-2">
+                                                            <label class="input">
+                                                                <input class="input__field"
+                                                                       style="height:28px;border-radius: 8px;width: 150px"
+                                                                       type="search"
+                                                                       th:field="*{nguoiNhan}"
+                                                                       name="nguoiNhan" id="nguoiNhan"
+                                                                >
+                                                                <span class="input__label"
+                                                                      style="font-size: 13px;font-weight: bold;"
+                                                                >Tên khách hàng:</span>
+                                                            </label>
+                                                        </div>
+
+                                                        <div class=" col-2">
+                                                            <label class="input">
+                                                                <input style="height:28px;width: 150px;border-radius: 8px;"
+                                                                       type="number"
+                                                                       class="input__field"
+                                                                       min="0" max="9000000" value="0"
+                                                                       th:field="*{tongTienSauKhiGiam}"
+                                                                       name="tongTienSauKhiGiam"
+                                                                       id="tongTienSauKhiGiam">
+                                                                <span style="font-size: 13px;font-weight: bold;"
+                                                                      class="input__label">Tổng tiền:</span>
+                                                            </label>
+                                                        </div>
+
+                                                        <div class="col-2">
+                                                            <label class="input">
+                                                                <select style="font-size: 14px;width: 150px;border-radius: 20px;"
+                                                                        class="input__field"
+                                                                        th:field="*{trangThai}" name="trangThai"
+                                                                        id="trangThai">
+                                                                    <option value="">Tất Cả</option>
+                                                                    <option value="0">Đang chờ xác nhận</option>
+                                                                    <option value="1">Đã xác nhận</option>
+                                                                    <option value="2">Đã hủy đơn</option>
+                                                                    <option value="3">Chờ giao hàng</option>
+                                                                    <option value="4">Đang giao hàng</option>
+                                                                    <option value="5">Giao hàng thành công</option>
+                                                                    <option value="6">Giao hàng thất bại</option>
+                                                                    <option value="7">Thanh toán thành công</option>
+
+                                                                </select>
+                                                                <span style="font-size: 13px;font-weight: bold;"
+                                                                      class="input__label">Trạng thái:</span>
+                                                            </label>
+
+                                                        </div>
+
+                                                        <div class="col-2">
+                                                            <label class="input">
+                                                                <input style="width: 150px; border-radius: 8px;"
+                                                                       type="datetime-local" class="input__field"
+                                                                       name="tuNgay" id="tuNgay" onchange="updateURL()">
+                                                                <span style="font-size: 13px; font-weight: bold;"
+                                                                      class="input__label">Từ ngày:</span>
+                                                            </label>
+                                                        </div>
+
+                                                        <div class="col-2">
+                                                            <label class="input">
+                                                                <input style="width: 150px; border-radius: 8px;"
+                                                                       type="datetime-local" class="input__field"
+                                                                       name="denNgay" id="denNgay"
+                                                                       onchange="updateURL()">
+                                                                <span style="font-size: 13px; font-weight: bold;"
+                                                                      class="input__label">Đến ngày:</span>
+                                                            </label>
+                                                        </div>
+
+
+                                                    </div>
+
+                                                    <br>
+                                                    <br>
+                                                    <div class="col-12 row container d-flex  align-content-around flex-wrap">
+
+                                                        <div class="col-4">
+                                                            <label style="float: right;" class="input">
+                                                                <select style="font-size: 14px;width: 150px;border-radius: 20px;"
+                                                                        class="input__field"
+                                                                        th:field="*{loaiDon}" name="loaiDon"
+                                                                        id="loaiDon">
+                                                                    <option value="">Tất Cả</option>
+                                                                    <option value="0">Tại quầy</option>
+                                                                    <option value="1">Đặt hàng online</option>
+                                                                </select>
+                                                                <span style="font-size: 13px;font-weight: bold;"
+                                                                      class="input__label">Loại đơn:</span>
+                                                            </label>
+                                                        </div>
+
+                                                        <div class="col-3">
+                                                            <div style="float: right;">
+                                                                <label class="input">
+
+                                                                    <select onchange="searchAndUpdate()"
+                                                                            style="font-size: 14px;width: 150px;height: 30px;border-radius: 20px;"
+                                                                            class="input__field" name="xapXep"
+                                                                            th:value="${xapXep}" id="xapXep">
+                                                                        <option value=""
+                                                                                th:selected="${xapXep == null}">Mặc định
+                                                                        </option>
+                                                                        <option value="1" th:selected="${xapXep == 1}">
+                                                                            Mới nhất
+                                                                        </option>
+                                                                        <option value="2" th:selected="${xapXep == 2}">
+                                                                            Cũ nhất
+                                                                        </option>
+                                                                        <option value="3" th:selected="${xapXep == 3}">
+                                                                            Giá cao nhất
+                                                                        </option>
+                                                                        <option value="4" th:selected="${xapXep == 4}">
+                                                                            Giá thấp nhất
+                                                                        </option>
+                                                                        <option value="5" th:selected="${xapXep == 5}">
+                                                                            Từ (A-Z)
+                                                                        </option>
+                                                                        <option value="6" th:selected="${xapXep == 6}">
+                                                                            Từ (Z-A)
+                                                                        </option>
+                                                                    </select>
+                                                                    <span class="input__label"
+                                                                          style="font-size: 13px;font-weight: bold;">Sắp xếp: </span>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+
+                                                        <div style="height: 35px;float: right;" class="col-2">
+                                                            <button onclick="searchAndUpdate3()" data-toggle="tooltip"
+                                                                    title="Tìm kiếm" &#xE254; height="22px"
+                                                                    style="background:blue;border-radius: 50px;border:1px solid black;justify-content: center;"
+                                                                    type="submit" class="btn btn-labeled shadow-button">
+                                                            <span style="margin-bottom: 3px;color: white;"
+                                                                  class="btn-icon"><i class="fas fa-search"></i></span>
+                                                                <span style="margin-bottom: 3px;color: white;"
+                                                                      class="separator">|</span>
+                                                                <span style="margin-bottom: 3px;color: white;font-size: 15px;font-weight: bold"
+                                                                      ;
+                                                                      class="btn-text">Tìm Kiếm</span>
+                                                            </button>
+                                                        </div>
+
+                                                        <div style="height: 35px;"
+                                                             class="col-2">
+                                                            <a th:href="@{/hoa-don/hien-thi-page-search}">
+                                                                <button onclick="refreshPage()" data-toggle="tooltip"
+                                                                        title="Làm mới" &#xE254; height="22px"
+                                                                        style="background:#0ad406;border-radius: 50px;border:1px solid black;justify-items: center;"
+                                                                        type="button"
+                                                                        class="btn btn-labeled shadow-button">
+                                                            <span style="margin-bottom: 3px;color: white;"
+                                                                  class="btn-icon">
+                                                                <i class="fa-solid fa-arrows-rotate fa-spin fa-lg"></i>
+                                                            </span>
+                                                                    <span style="margin-bottom: 3px;color: white;"
+                                                                          class="separator">|</span>
+                                                                    <span style="margin-bottom: 3px;color: white;font-size: 15px;font-weight: bold"
+                                                                          ;
+                                                                          class="btn-text">Refresh</span>
+                                                                </button>
+                                                            </a>
+                                                        </div>
+
+
+                                                    </div>
+                                                </form>
+
+                                                <div style=" margin-top: 30px; height: 35px;display: flex;justify-content: space-between;"
+                                                     class="col-12">
+                                                    <form th:href="@{/ban-hang-tai-quay/add}" method="post">
+                                                        <button data-toggle="tooltip"
+                                                                title="Tạo hóa đơn" &#xE254; height="24px"
+                                                                style="background:black;border-radius: 50px;border:1px solid black;justify-items: center;"
+                                                                type="submit" class="btn btn-labeled shadow-button">
+                                                            <span style="margin-bottom: 3px;color: white;"
+                                                                  class="btn-icon"><i
+                                                                    class="fa-regular fa-square-plus fa-beat fa-lg"></i></span>
+                                                            <span style="margin-bottom: 3px;color: white;"
+                                                                  class="separator">|</span>
+                                                            <span style="margin-bottom: 3px;color: white;font-size: 15px;font-weight: bold"
+                                                                  ;
+                                                                  class="btn-text">Tạo hóa đơn</span>
+                                                        </button>
+                                                    </form>
+
+                                                    <form class="export-form"
+                                                          th:action="@{/hoa-don/export-excel}"
+                                                          method="post">
+                                                        <button onclick="return confirm('Bạn chắc chắn muốn in hóa đơn ?')"
+                                                                style="border: 1px solid black; background:greenyellow;border-radius:10px;"
+                                                                data-toggle="tooltip"
+                                                                title="In hóa đơn Excel"
+                                                                class="shadow-button" type="submit">
+                                                            <a style="text-decoration: none;"
+                                                               th:href="@{/hoa-don/export-excel}">
+                                                                <img th:src="@{/static/image/printer.png}"
+                                                                     width="30px" height="30px" alt="">
+                                                            </a>
+                                                            <span class="separator">|</span>
+                                                            <span style="font-size: 15px;font-weight: bold" ;
+                                                                  class="btn-text">In Excel</span>
+                                                        </button>
+                                                    </form>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <!--<br>-->
+                            <!--<br>-->
+
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="card-box">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <section class="navbar-expand-lg navbar-light bg-light">
+                                                    <table class="table" style="text-align:center;">
+                                                        <thead>
+                                                        <tr style="text-align: center;">
+                                                            <th>#</th>
+                                                            <th>Mã Hóa Đơn</th>
+                                                            <th>Tên Khách Hàng</th>
+                                                            <th>Ngày Đặt Hàng</th>
+                                                            <th>Tổng Tiền</th>
+                                                            <th>Loại Đơn Hàng</th>
+                                                            <th>Trạng Thái</th>
+                                                            <th>Hành Động</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody style="text-align:center;">
+                                                        <tr th:each="hd,index : ${listHD.content}">
+                                                            <td style="font-weight: bold;font-style: italic;"
+                                                                class="align-middle"
+                                                                th:text="${index.count}"></td>
+                                                            <td style="font-size: 14px;font-weight: bold"
+                                                                class="align-middle"
+                                                                th:text="${hd.maHoaDon}"></td>
+                                                            <td style="font-size: 14px;font-weight: bold"
+                                                                class="align-middle"
+                                                                th:text="${hd.nguoiNhan}"></td>
+                                                            <td style="font-size: 14px;font-weight: bold"
+                                                                class="align-middle"
+                                                                th:text="${#dates.format(hd.ngayTao, 'dd/MM/yyyy HH:mm')}"
+                                                            ></td>
+                                                            <td style="font-size: 14px;font-weight: bold"
+                                                                class="align-middle"
+                                                                th:text="${#numbers.formatDecimal(hd.tongTienSauKhiGiam, 0 , 'COMMA',3,'POINT').substring(0, #numbers.formatDecimal(hd.tongTienSauKhiGiam, 0 , 'COMMA',3,'POINT').length()-4)} + ' đ'">
+                                                            </td>
+
+                                                            <td style="font-size: 14px; font-weight: bold; text-align: center; vertical-align: middle;">
+                                                                <div style="display: inline-block; text-align: left;">
+                                                                    <span style="width: 165px; pointer-events: none; height: 30px; border-radius: 20px; display: flex; align-items: center; justify-content: center;"
+                                                                          th:if="${hd.loaiDon == 0 || hd.loaiDon == null}"
+                                                                          class="btn btn-labeled shadow-button btn btn-dark status-completed">Tại quầy</span>
+                                                                    <span style="width: 165px; pointer-events: none; height: 30px; border-radius: 20px; display: flex; align-items: center; justify-content: center;"
+                                                                          th:if="${hd.loaiDon != 0}"
+                                                                          class="btn btn-labeled shadow-button btn btn-info status-completed">Đặt hàng online</span>
+                                                                </div>
+                                                            </td>
+
+                                                            <td style="font-size: 14px;font-weight: bold;display: flex;justify-content:center;"
+                                                                class="align-middle">
+                                                                <span style="width: 200px; pointer-events: none; height: 30px; border-radius: 20px; display: flex; align-items: center; justify-content: center;"
+                                                                      th:if="${hd.trangThai == 0 }"
+                                                                      class="btn btn-labeled shadow-button btn btn-warning status-pending">Đang chờ xác nhận</span>
+                                                                <span style="width: 200px; pointer-events: none; height: 30px; border-radius: 20px; display: flex; align-items: center; justify-content: center;"
+                                                                      th:if="${hd.trangThai == 1}"
+                                                                      class="btn btn-labeled shadow-button btn btn-success status-completed">Đã xác nhận</span>
+                                                                <span style="width: 200px; pointer-events: none; height: 30px; border-radius: 20px; display: flex; align-items: center; justify-content: center;"
+                                                                      th:if="${hd.trangThai == 2 }"
+                                                                      class="btn btn-labeled shadow-button btn btn-danger status-cancelled">Đã hủy đơn</span>
+                                                                <span style="width: 200px; pointer-events: none; height: 30px; border-radius: 20px; display: flex; align-items: center; justify-content: center;"
+                                                                      th:if="${hd.trangThai == 3 }"
+                                                                      class="btn btn-labeled shadow-button btn btn-warning status-pending">Chờ giao hàng</span>
+                                                                <span style="width: 200px; pointer-events: none; height: 30px; border-radius: 20px; display: flex; align-items: center; justify-content: center;"
+                                                                      th:if="${hd.trangThai == 4 }"
+                                                                      class="btn btn-labeled shadow-button btn btn-warning status-pending">Đang giao hàng</span>
+                                                                <span style="width: 200px; pointer-events: none; height: 30px; border-radius: 20px; display: flex; align-items: center; justify-content: center;"
+                                                                      th:if="${hd.trangThai == 5 }"
+                                                                      class="btn btn-labeled shadow-button btn btn-success status-completed">Giao hàng thành công</span>
+                                                                <span style="width: 200px; pointer-events: none; height: 30px; border-radius: 20px; display: flex; align-items: center; justify-content: center;"
+                                                                      th:if="${hd.trangThai == 6 }"
+                                                                      class="btn btn-labeled shadow-button btn btn-danger status-cancelled">Giao hàng thất bại</span>
+                                                                <span style="width: 200px; pointer-events: none; height: 30px; border-radius: 20px; display: flex; align-items: center; justify-content: center;"
+                                                                      th:if="${hd.trangThai == 7 }"
+                                                                      class="btn btn-labeled shadow-button btn btn-success status-completed">Thanh toán thành công</span>
+                                                            </td>
+
+                                                            <td class="align-middle">
+                                                                <div style="display: flex;justify-content: center;"
+                                                                     class="button-group">
+                                                                    <a class="view-hoa-don"
+                                                                       th:href="@{view-hoa-don/{id}(id=${hd.id})}"
+                                                                       data-toggle="tooltip" title="Chi Tiết">
+                                                                        <i style="color:#0c5460"
+                                                                           class="fa-solid fa-circle-info fa-shake fa-lg"></i>
+                                                                    </a>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+
+                                                        <tr th:if="${listHD.content.size() == 0}">
+                                                            <div style="" class="col-sm-12">
+                                                                <td colspan="10"
+                                                                    style="text-align: center;pointer-events:none;">
+                                                                    <div class="alert fade alert-simple alert-danger alert-dismissible text-left font__family-montserrat font__size-28 font__weight-light brk-library-rendered rendered show"
+                                                                         role="alert"
+                                                                         data-brk-library="component__alert">
+
+                                                                        <div class="start-icon far fa-times-circle faa-pulse animated fa-times">
+                                                                            <strong style="font-family: Arial"
+                                                                                    class="font__weight-semibold ">Không
+                                                                                tìm thấy dữ liệu !</strong></div>
+                                                                    </div>
+                                                                </td>
+                                                            </div>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+
+                                                    <label class="input">
+
+                                                        <select onchange="searchAndUpdate2()"
+                                                                style="font-size: 14px;width: 50px;height: 30px;border-radius: 10px;"
+                                                                class="input__field" name="size"
+                                                                th:value="${size}" id="size">
+                                                            <option value="5" th:selected="${size == 5}">5</option>
+                                                            <option value="10" th:selected="${size == 10}">10</option>
+                                                            <option value="25" th:selected="${size == 25}">25</option>
+                                                            <option value="50" th:selected="${size == 50}">50</option>
+                                                            <option value="100" th:selected="${size == 100}">100
+                                                            </option>
+                                                        </select>
+                                                    </label>
+
+                                                </section>
+                                            </div> <!-- end container-fluid -->
+
+                                        </div> <!-- end content -->
+                                    </div>
+                                </div>
+
+                                <!-- ============================================================== -->
+                                <!-- End Page content -->
+                                <!-- ============================================================== -->
+
+                            </div>
+                            <!-- END wrapper -->
+
+                            <!--&lt;!&ndash; Right Sidebar &ndash;&gt;-->
+                            <!-- Right bar overlay-->
+                            <div class="rightbar-overlay"></div>
+
+
+                            <div class="row">
+                                <div class="col-sm-12 col-md-12" style="display: flex; justify-content: center">
+                                    <nav style="margin-left: 25px;" aria-label="Page navigation example" class="flex">
+                                        <ul class="pagination">
+                                            <li class="page-item" th:classappend="${listHD.number == 0} ? disabled">
+                                                <a class="page-link"
+                                                   th:href="@{/hoa-don/hien-thi-page-search(page=0, size=${listHD.size},
+                                                    maHoaDon=${param.maHoaDon}, nguoiNhan=${param.nguoiNhan}, tongTienSauKhiGiam=${param.tongTienSauKhiGiam},
+                                                     trangThai=${param.trangThai}, tuNgay=${param.tuNgay}, denNgay=${param.denNgay}, loaiDon=${param.loaiDon},
+                                                      xapXep=${param.xapXep},size=${param.size})}">Trang
+                                                    đầu</a>
+                                            </li>
+                                            <li class="page-item"
+                                                th:classappend="${listHD.number == 0} ? disabled">
+                                                <a class="page-link"
+                                                   th:href="@{/hoa-don/hien-thi-page-search(page=${listHD.number - 1}, maHoaDon=${param.maHoaDon},
+                                                   nguoiNhan=${param.nguoiNhan}, tongTienSauKhiGiam=${param.tongTienSauKhiGiam},
+                                                    trangThai=${param.trangThai}, tuNgay=${param.tuNgay}, denNgay=${param.denNgay},
+                                                     loaiDon=${param.loaiDon}, xapXep=${param.xapXep},size=${param.size})}">
+                                                    <i class="fa-solid fa-angles-left fa-lg"></i>
+                                                </a>
+                                            </li>
+                                            <li class="page-item"
+                                                th:each="pageNumber : ${#numbers.sequence(0, listHD.totalPages - 1)}">
+                                                <a class="page-link"
+                                                   th:href="@{/hoa-don/hien-thi-page-search(page=${pageNumber},
+                                                    maHoaDon=${param.maHoaDon}, nguoiNhan=${param.nguoiNhan},
+                                                    tongTienSauKhiGiam=${param.tongTienSauKhiGiam}, trangThai=${param.trangThai},
+                                                    tuNgay=${param.tuNgay}, denNgay=${param.denNgay}, loaiDon=${param.loaiDon},
+                                                     xapXep=${param.xapXep},size=${param.size})}"
+                                                   th:text="${pageNumber + 1}"
+                                                   th:classappend="${pageNumber == listHD.number} ? active">
+                                                </a>
+                                            </li>
+                                            <li class="page-item"
+                                                th:classappend="${listHD.number == listHD.totalPages - 1} ? disabled">
+                                                <a class="page-link"
+                                                   th:href="@{/hoa-don/hien-thi-page-search(page=${listHD.number + 1}, maHoaDon=${param.maHoaDon},
+                                                    nguoiNhan=${param.nguoiNhan}, tongTienSauKhiGiam=${param.tongTienSauKhiGiam},
+                                                     trangThai=${param.trangThai},tuNgay=${param.tuNgay}, denNgay=${param.denNgay},
+                                                      loaiDon=${param.loaiDon},xapXep=${param.xapXep},size=${param.size})}">
+                                                    <i class="fa-solid fa-angles-right fa-lg"></i>
+                                                </a>
+                                            </li>
+                                            <li class="page-item"
+                                                th:classappend="${listHD.number == listHD.totalPages - 1} ? disabled"><a
+                                                    class="page-link"
+                                                    th:href="@{/hoa-don/hien-thi-page-search(page=${listHD.totalPages - 1}, size=${listHD.size}, maHoaDon=${param.maHoaDon},
+                                                     nguoiNhan=${param.nguoiNhan}, tongTienSauKhiGiam=${param.tongTienSauKhiGiam}, trangThai=${param.trangThai},
+                                                      tuNgay=${param.tuNgay}, denNgay=${param.denNgay},
+                                                       loaiDon=${param.loaiDon}, xapXep=${param.xapXep},size=${param.size})}">Trang
+                                                cuối</a>
+                                            </li>
+                                        </ul>
+                                    </nav>
+
+                                </div>
+                            </div>
+
+
+                            <!--<a href="javascript:void(0);" class="right-bar-toggle demos-show-btn">-->
+                            <!--    <i class="mdi mdi-settings-outline mdi-spin"></i> &nbsp;Choose Demos-->
+                            <!--</a>-->
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+
+    </div>
+</div>
+</div>
+</div>
+
+
+<!-- Footer Start -->
+<footer class="footer">
+    <div style="text-align:center;" class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                2099 - 2999 &copy; Made by <strong>VietLeonDavincis</strong> <a style="text-decoration:none;"
+                                                                                th:href="@{https://didongviet.vn/dchannel/bing-chilling/}">Bingchiling
+                !</a>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- end Footer -->
+<!-- Vendor js -->
+<script src="../../static/assets\js\vendor.min.js"></script>
+
+
+<!--Morris Chart-->
+<script src="../../static/assets\libs\morris-js\morris.min.js"></script>
+<script src="../../static/assets\libs\raphael\raphael.min.js"></script>
+
+<!-- Dashboard init js-->
+<script src="../../static/assets\js\pages\dashboard.init.js"></script>
+
+<!-- App js -->
+<script src="../../static/assets\js\app.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" charset="utf-8"></script>
+
+
+<th:block id="js-resources">
+    <script>
+        function showValue(value) {
+            document.getElementById("rangeValue").innerHTML = value;
+        }
+
+        function showValue1(value) {
+            document.getElementById("rangeValue1").innerHTML = value;
+        }
+
+        const form = document.querySelector('.form-row');
+        const rangeInputs = form.querySelectorAll('input[type="range"]');
+        const datetimeInputs = form.querySelectorAll('input[type="datetime-local"]');
+        const radioInputs = form.querySelectorAll('input[type="radio"]');
+        const searchInput = form.querySelector('input[type="search"]');
+
+        rangeInputs.forEach(input => {
+            input.addEventListener('mousemove', () => {
+                form.submit();
+            });
+        });
+
+        datetimeInputs.forEach(input => {
+            input.addEventListener('change', () => {
+                form.submit();
+            });
+        });
+
+        radioInputs.forEach(input => {
+            input.addEventListener('change', () => {
+                form.submit();
+            });
+        });
+
+        searchInput.addEventListener('keyup', (event) => {
+            if (event.key === 'Enter') {
+                form.submit();
+            }
+        });
+    </script>
+
+    <script>
+        function searchAndUpdate() {
+            var xapXepValue = document.getElementById("xapXep").value;
+            var encodedXapXepValue = encodeURIComponent(xapXepValue);
+
+            // Lưu trữ giá trị xapXepValue vào localStorage
+            localStorage.setItem("selectedXapXepValue", xapXepValue);
+
+            // Lấy giá trị từ các trường lọc
+            var maHoaDon = document.getElementById('maHoaDon').value;
+            var nguoiNhan = document.getElementById('nguoiNhan').value;
+            var tongTienSauKhiGiam = document.getElementById('tongTienSauKhiGiam').value;
+            var trangThai = document.getElementById('trangThai').value;
+            var tuNgay = document.getElementById('tuNgay').value;
+            var denNgay = document.getElementById('denNgay').value;
+            var loaiDon = document.getElementById('loaiDon').value;
+
+            // Tạo URL tìm kiếm với các tham số lọc
+            var searchUrl = "http://localhost:8080/hoa-don/hien-thi-page-search?";
+            searchUrl += "maHoaDon=" + encodeURIComponent(maHoaDon);
+            searchUrl += "&nguoiNhan=" + encodeURIComponent(nguoiNhan);
+            searchUrl += "&tongTienSauKhiGiam=" + encodeURIComponent(tongTienSauKhiGiam);
+            searchUrl += "&trangThai=" + encodeURIComponent(trangThai);
+            searchUrl += "&tuNgay=" + encodeURIComponent(tuNgay);
+            searchUrl += "&denNgay=" + encodeURIComponent(denNgay);
+            searchUrl += "&loaiDon=" + encodeURIComponent(loaiDon);
+            searchUrl += "&xapXep=" + encodedXapXepValue;
+
+            // Chuyển hướng đến URL tìm kiếm với các tham số lọc
+            window.location.href = searchUrl;
+        }
+
+        function searchAndUpdate2() {
+            var sizeValue = document.getElementById("size").value;
+            var encodedSizeValue = encodeURIComponent(sizeValue);
+
+            // Lưu trữ giá trị sizeValue vào localStorage
+            localStorage.setItem("selectedSizeValue", sizeValue);
+
+            // Lấy giá trị từ các trường lọc
+            var maHoaDon = document.getElementById('maHoaDon').value;
+            var nguoiNhan = document.getElementById('nguoiNhan').value;
+            var tongTienSauKhiGiam = document.getElementById('tongTienSauKhiGiam').value;
+            var trangThai = document.getElementById('trangThai').value;
+            var tuNgay = document.getElementById('tuNgay').value;
+            var denNgay = document.getElementById('denNgay').value;
+            var loaiDon = document.getElementById('loaiDon').value;
+            var xapXepValue = document.getElementById('xapXep').value;
+
+            // Tạo URL tìm kiếm với các tham số lọc
+            var searchUrl = "http://localhost:8080/hoa-don/hien-thi-page-search?";
+            searchUrl += "maHoaDon=" + encodeURIComponent(maHoaDon);
+            searchUrl += "&nguoiNhan=" + encodeURIComponent(nguoiNhan);
+            searchUrl += "&tongTienSauKhiGiam=" + encodeURIComponent(tongTienSauKhiGiam);
+            searchUrl += "&trangThai=" + encodeURIComponent(trangThai);
+            searchUrl += "&tuNgay=" + encodeURIComponent(tuNgay);
+            searchUrl += "&denNgay=" + encodeURIComponent(denNgay);
+            searchUrl += "&loaiDon=" + encodeURIComponent(loaiDon);
+            searchUrl += "&xapXep=" + encodeURIComponent(xapXepValue);
+            searchUrl += "&size=" + encodedSizeValue;
+
+            // Chuyển hướng đến URL tìm kiếm với các tham số lọc
+            window.location.href = searchUrl;
+        }
+
+        // Khôi phục giá trị lựa chọn sau khi trang được load lại
+        window.onload = function () {
+            var selectedXapXepValue = localStorage.getItem("selectedXapXepValue");
+            if (selectedXapXepValue) {
+                document.getElementById("xapXep").value = selectedXapXepValue
+            }
+
+            var selectedSizeValue = localStorage.getItem("selectedSizeValue");
+            if (selectedSizeValue) {
+                document.getElementById("size").value = selectedSizeValue;
+            }
+        };
+
+        function resetFilters() {
+            // Xóa giá trị từ các trường nhập liệu
+            document.getElementById('maHoaDon').value = '';
+            document.getElementById('nguoiNhan').value = '';
+            document.getElementById('tongTienSauKhiGiam').value = '';
+            document.getElementById('trangThai').value = '';
+            document.getElementById('tuNgay').value = '';
+            document.getElementById('denNgay').value = '';
+            document.getElementById('loaiDon').value = '';
+
+            // // Xóa giá trị từ các trường input ẩn
+            // document.getElementById('maHoaDonHidden').value = '';
+            // document.getElementById('nguoiNhanHidden').value = '';
+            // document.getElementById('tongTienSauKhiGiamHidden').value = '';
+            // document.getElementById('trangThaiHidden').value = '';
+            // document.getElementById('tuNgayHidden').value = '';
+            // document.getElementById('denNgayHidden').value = '';
+            // document.getElementById('loaiDonHidden').value = '';
+
+            // Submit form để làm mới
+            document.getElementById('searchForm').submit();
+        }
+    </script>
+    <script th:inline="javascript">
+        function updateURL() {
+            var tuNgay = document.getElementById("tuNgay").value;
+            var denNgay = document.getElementById("denNgay").value;
+
+            var currentURL = window.location.href;
+            var updatedURL = updateQueryStringParameter(currentURL, "tuNgay", tuNgay);
+            updatedURL = updateQueryStringParameter(updatedURL, "denNgay", denNgay);
+            window.location.href = updatedURL;
+        }
+
+        var urlParams = new URLSearchParams(window.location.search);
+
+        var urlParamFields = {
+            "tuNgay": document.getElementById("tuNgay"),
+            "denNgay": document.getElementById("denNgay")
+        };
+
+        Object.keys(urlParamFields).forEach(function (key) {
+            if (urlParams.has(key)) {
+                urlParamFields[key].value = urlParams.get(key);
+                localStorage.setItem(key, urlParams.get(key)); // Lưu giá trị vào localStorage
+            } else if (localStorage.getItem(key)) {
+                urlParamFields[key].value = localStorage.getItem(key); // Khôi phục giá trị từ localStorage
+            }
+        });
+
+        function updateQueryStringParameter(url, key, value) {
+            var re = new RegExp("([?&])" + key + "=.*?(&|$)", "i");
+            var separator = url.indexOf('?') !== -1 ? "&" : "?";
+            return url.match(re) ? url.replace(re, '$1' + key + "=" + value + '$2') : url + separator + key + "=" + value;
+        }
+
+        function handleSearch() {
+            // Get the value of the input field
+            var timKiemValue = document.getElementById("timKiem").value;
+
+            // Perform the search here, for example, by submitting the form
+            // You can use JavaScript to submit the form or handle the search via AJAX
+            // For simplicity, I'll demonstrate form submission.
+            document.getElementById("yourFormId").submit(); // Replace "yourFormId" with the actual ID of your form.
+        }
+
+        document.getElementById("tuNgay").addEventListener("change", function () {
+            localStorage.setItem("tuNgay", this.value); // Lưu giá trị vào localStorage khi thay đổi
+        });
+
+        document.getElementById("denNgay").addEventListener("change", function () {
+            localStorage.setItem("denNgay", this.value); // Lưu giá trị vào localStorage khi thay đổi
+        });
+
+        function refreshPage() {
+            document.getElementById("tuNgay").value = "";
+            document.getElementById("denNgay").value = "";
+
+            localStorage.removeItem("tuNgay"); // Xóa giá trị trong localStorage
+            localStorage.removeItem("denNgay");
+
+            // Xóa giá trị đã lưu trữ trong localStorage
+            localStorage.removeItem("selectedXapXepValue");
+            localStorage.removeItem("selectedSizeValue");
+
+            // Làm mới trang
+            location.reload();
+        }
+    </script>
+</th:block>
+
+</body>
+</html>
